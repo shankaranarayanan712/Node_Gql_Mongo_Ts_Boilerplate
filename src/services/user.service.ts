@@ -2,7 +2,7 @@ import { encryptPassword } from '../helpers/bcryptHelper';
 import { CreateUserRequest } from '../interface/request/user.request.interface';
 import { UserResponse } from '../interface/response/user.response';
 
-const Users = require('../models/users');
+const Users = require('../models/user');
 export class UserService {
   async create(request: CreateUserRequest): Promise<UserResponse> {
     try {

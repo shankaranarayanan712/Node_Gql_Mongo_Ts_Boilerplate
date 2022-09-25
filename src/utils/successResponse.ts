@@ -1,4 +1,4 @@
-const messageResponse: { [key: string]: any } = {
+const messageResponse: { [key: string]: string } = {
   created: 'Record Created',
   updated: 'Record Updated',
   deleted: 'Record Deleted',

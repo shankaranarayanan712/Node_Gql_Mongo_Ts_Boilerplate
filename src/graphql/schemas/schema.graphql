@@ -145,7 +145,6 @@ type User {
   email: String
   name: String
   phone: String
-  password: String
 }
 
 type Car {

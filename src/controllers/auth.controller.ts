@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { authRequestValidationSchema } from '../validator/auth.request.validator';
 import { LoginRequest } from '../interface/request/login.request';
 import { decryptPassword } from '../helpers/bcryptHelper';
-const Users = require('../models/users');
+const Users = require('../models/user');
 
 export class AuthController {
   async login(request: LoginRequest) {

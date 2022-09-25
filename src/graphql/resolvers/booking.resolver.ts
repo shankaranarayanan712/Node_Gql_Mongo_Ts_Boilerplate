@@ -16,23 +16,23 @@ const carBookingResolver: IResolvers = {
     filterCarBookings: (_, inputObject, ctx: Context) => {
       return ctx?.isUserLogged
         ? bookingController.filterCarBookings(inputObject.input)
-        : buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login to perform this action' });
+        : buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login/provide token  to perform this action' });
     },
     filterOfficeBookings: (_, inputObject, ctx: Context) => {
       return ctx?.isUserLogged
-        ? bookingController.filterOfficeBookings(inputObject)
-        : buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login to perform this action' });
+        ? bookingController.filterOfficeBookings(inputObject.input)
+        : buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login/provide token to perform this action' });
     },
   },
   Mutation: {
     createCarBooking: (_, inputObject, ctx: Context) => {
-      if (Object.hasOwnProperty('isUserLogged') && !ctx?.isUserLogged)
-        return buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login to perform booking' });
+      if (ctx.hasOwnProperty('isUserLogged') && !ctx?.isUserLogged)
+        return buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login/provide token to perform booking' });
       return bookingController.createCarBooking(inputObject.input);
     },
     createOfficeBooking: (_, inputObject, ctx: Context) => {
-      if (Object.hasOwnProperty('isUserLogged') && !ctx?.isUserLogged)
-        return buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login to perform booking' });
+      if (ctx.hasOwnProperty('isUserLogged') && !ctx?.isUserLogged)
+        return buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login/provide token to perform booking' });
       return bookingController.createOfficeBooking(inputObject.input);
     },
   },

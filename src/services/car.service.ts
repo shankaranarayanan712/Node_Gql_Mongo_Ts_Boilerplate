@@ -1,6 +1,6 @@
 import { CarResponse } from '../interface/response/car.response';
 
-const Cars = require('../models/cars');
+const Cars = require('../models/car');
 export class CarService {
   async listCars(): Promise<CarResponse> {
     try {

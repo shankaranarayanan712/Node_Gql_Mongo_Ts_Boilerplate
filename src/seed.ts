@@ -1,7 +1,7 @@
-const Cars = require('./models/cars');
+const Cars = require('./models/car');
 const Office = require('./models/office');
-const User = require('./models/users');
-
+const User = require('./models/user');
+const { UserService } = require('./services/user.service');
 const cars = [
   {
     name: 'Mercedes-Benz',
@@ -105,12 +105,12 @@ const adminUser = {
 
 export const seedData = async (shouldCleanupExistingData = true) => {
   try {
+    const userService = new UserService();
     if (shouldCleanupExistingData) {
       await User.deleteMany({});
     }
     const [existingCars, existingOffices] = await Promise.all([Cars.find({}), Office.find({})]);
-    const user = new User(adminUser);
-    await user.save(adminUser);
+    await userService.create(adminUser);
     if (existingCars?.length === 0) {
       for (let i = 0; i < cars.length; i++) {
         const car = new Cars(cars[i]);
