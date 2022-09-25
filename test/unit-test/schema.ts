@@ -148,6 +148,7 @@ const typeDefs = gql`
     email: String
     name: String
     phone: String
+    carBookings: [CarBooking]
   }
 
   type Car {

@@ -145,6 +145,7 @@ type User {
   email: String
   name: String
   phone: String
+  carBookings: [CarBooking]
 }
 
 type Car {
