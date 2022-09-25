@@ -14,25 +14,38 @@ const carBookingResolver: IResolvers = {
       return bookingController.getCarBookings(inputObject);
     },
     filterCarBookings: (_, inputObject, ctx: Context) => {
-      return ctx?.isUserLogged
-        ? bookingController.filterCarBookings(inputObject.input)
-        : buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login/provide token  to perform this action' });
+      if (ctx.hasOwnProperty('isUserLogged') && !ctx?.isUserLogged)
+      return buildErrorResponse({
+        code: 401,
+        message: 'Unauthorized, Please Login/provide token  to perform this action',
+      });
+      return bookingController.filterCarBookings(inputObject.input);
+      
     },
     filterOfficeBookings: (_, inputObject, ctx: Context) => {
-      return ctx?.isUserLogged
-        ? bookingController.filterOfficeBookings(inputObject.input)
-        : buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login/provide token to perform this action' });
+      if (ctx.hasOwnProperty('isUserLogged') && !ctx?.isUserLogged)
+        return buildErrorResponse({
+          code: 401,
+          message: 'Unauthorized, Please Login/provide token to perform this action',
+        });
+      return bookingController.filterOfficeBookings(inputObject.input);
     },
   },
   Mutation: {
     createCarBooking: (_, inputObject, ctx: Context) => {
       if (ctx.hasOwnProperty('isUserLogged') && !ctx?.isUserLogged)
-        return buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login/provide token to perform booking' });
+        return buildErrorResponse({
+          code: 401,
+          message: 'Unauthorized, Please Login/provide token to perform booking',
+        });
       return bookingController.createCarBooking(inputObject.input);
     },
     createOfficeBooking: (_, inputObject, ctx: Context) => {
       if (ctx.hasOwnProperty('isUserLogged') && !ctx?.isUserLogged)
-        return buildErrorResponse({ code: 401, message: 'Unauthorized, Please Login/provide token to perform booking' });
+        return buildErrorResponse({
+          code: 401,
+          message: 'Unauthorized, Please Login/provide token to perform booking',
+        });
       return bookingController.createOfficeBooking(inputObject.input);
     },
   },
